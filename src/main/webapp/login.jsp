@@ -45,7 +45,7 @@
         </main>
         
         <footer>
-            <p>&copy; 2025 College Online Voting System</p>
+            <p>&copy; 2025 Online Voting System</p>
         </footer>
     </div>
 </body>
