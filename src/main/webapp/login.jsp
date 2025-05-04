@@ -21,10 +21,10 @@
                     <div class="error-message"><%= errorMessage %></div>
                 <% } %>
                 
-                <form action="login" method="post">
+                <form action="LoginServlet" method="post">
                     <div class="form-group">
                         <label for="voterId">Voter ID:</label>
-                        <input type="text" id="voterId" name="voterId" required>
+                        <input type="text" id="voterId" name="voter_id" required>
                     </div>
                     
                     <div class="form-group">
@@ -45,7 +45,7 @@
         </main>
         
         <footer>
-            <p>&copy; 2025 Online Voting System</p>
+            <p>&copy; Online Voting System</p>
         </footer>
     </div>
 </body>

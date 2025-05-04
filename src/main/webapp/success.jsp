@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.votingsystem.model.Voter"%>
+<%@ page import="com.voting.model.Voter"%>
+<%@ page import="com.voting.model.VoteResult" %>
 <%
     Voter voter = (Voter) session.getAttribute("voter");
     if (voter == null) {

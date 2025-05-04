@@ -21,10 +21,10 @@
                     <div class="error-message"><%= errorMessage %></div>
                 <% } %>
                 
-                <form action="admin" method="post">
+                <form action="AdminLoginServlet" method="post">
                     <div class="form-group">
-                        <label for="adminId">Admin ID:</label>
-                        <input type="text" id="adminId" name="adminId" required>
+                        <label for="adminId">Username:</label>
+                        <input type="text" id="adminId" name="username" required>
                     </div>
                     
                     <div class="form-group">

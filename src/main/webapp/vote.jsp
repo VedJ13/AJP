@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%--
-<%@ page import="com.votingsystem.dao.CandidateDAO"%>
-<%@ page import="com.votingsystem.model.Candidate"%>
-<%@ page import="com.votingsystem.model.Voter"%>
- --%>
+
+
+<%@ page import="com.voting.dao.VoteDAO" %>
+<%@ page import="com.voting.dao.VoterDAO" %>
+<%@ page import="com.voting.dao.ElectionDAO" %>
+<%@ page import="com.voting.dao.AdminDAO" %>
+<%@ page import="com.voting.model.Candidate"%>
+<%@ page import="com.voting.model.Voter"%>
+<%@ page import="com.voting.model.Admin"%>
+<%@ page import="com.voting.model.VoteResult"%>
+<%@ page import="com.voting.model.Election"%>
+<%@ page import="com.voting.dao.CandidateDAO"%>
+
 
 <%@ page import="java.util.List"%>
 <%
@@ -14,8 +22,11 @@
         return;
     }
     
+    int electionId = Integer.parseInt(request.getParameter("electionId"));
+    
     // Check if user has already voted
-    if (voter.isVoted()) {
+    VoteDAO voteDAO = new VoteDAO();
+    if (voteDAO.isVoted(electionId, voter.getVoterId())) {
         response.sendRedirect("success.jsp?message=You have already voted!");
         return;
     }
@@ -51,11 +62,11 @@
                 <div class="error-message"><%= errorMessage %></div>
             <% } %>
             
-            <form action="vote" method="post" id="voteForm">
+            <form action="VoteServlet" method="post" id="voteForm">
                 <div class="candidates-list">
                     <% 
                     CandidateDAO candidateDAO = new CandidateDAO();
-                    List<Candidate> candidates = candidateDAO.getAllCandidates();
+                    List<Candidate> candidates = candidateDAO.getAllCandidates(electionId);
                     
                     for (Candidate candidate : candidates) {
                     %>
@@ -90,7 +101,7 @@
         </main>
         
         <footer>
-            <p>&copy; 2025 Online Voting System</p>
+            <p>&copy; Online Voting System</p>
         </footer>
     </div>
     

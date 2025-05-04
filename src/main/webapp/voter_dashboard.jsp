@@ -230,7 +230,16 @@
         <div class="header-content container">
             <h1 class="site-title">Online Voting System</h1>
             <div class="user-info">
-                <span>Welcome, <%= "John Doe"  %></span>
+     <%--       <span>Welcome, <%= "John Doe"  %></span>  --%>
+     <%
+    	String username = (String) session.getAttribute("name");
+   		 if (username == null) {
+     	   response.sendRedirect("admin.jsp"); // Or login page
+     	   return;
+  	  }
+	%>
+<span>Welcome, <%= username %></span>
+     
                 <a href="logout.jsp" class="btn btn-small btn-secondary">Logout</a>
             </div>
         </div>
@@ -239,7 +248,7 @@
     <div class="container">
         <div class="dashboard-welcome">
             <div class="welcome-text">
-                <h2>Welcome, <%= "John" %>
+                <h2>Welcome, <%= username %>
                 <%-- First name would be loaded from session --%>
                 </h2>
                 <p>

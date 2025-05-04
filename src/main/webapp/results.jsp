@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.votingsystem.dao.VoteDAO"%>
-<%@ page import="com.votingsystem.dao.CandidateDAO"%>
-<%@ page import="com.votingsystem.model.Candidate"%>
-<%@ page import="com.votingsystem.model.VoteResult"%>
+<%@ page import="com.voting.dao.VoteDAO"%>
+<%@ page import="com.voting.dao.CandidateDAO"%>
+<%@ page import="com.voting.model.Candidate"%>
+<%@ page import="com.voting.model.VoteResult"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Map"%>
 <%
@@ -13,9 +13,10 @@
         return;
     }
     
+    int electionId = Integer.parseInt(request.getParameter("electionId"));
     VoteDAO voteDAO = new VoteDAO();
-    List<VoteResult> results = voteDAO.getVoteResults();
-    int totalVotes = voteDAO.getTotalVotes();
+    List<VoteResult> results = voteDAO.getVoteResults(electionId);
+    int totalVotes = voteDAO.getTotalVotes(electionId);
 %>
 <!DOCTYPE html>
 <html>

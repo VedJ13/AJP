@@ -5,7 +5,7 @@
         
         <% if (session.getAttribute("voter") != null) { %>
             <div class="user-info">
-                <span>Welcome, <%= ((com.votingsystem.model.Voter) session.getAttribute("voter")).getName() %></span>
+                <span>Welcome, <%= ((com.voting.model.Voter) session.getAttribute("voter")).getName() %></span>
                 <a href="logout" class="btn-small">Logout</a>
             </div>
         <% } else if (session.getAttribute("isAdmin") != null && (Boolean) session.getAttribute("isAdmin")) { %>

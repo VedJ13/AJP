@@ -28,10 +28,10 @@
                     <div class="success-message"><%= successMessage %></div>
                 <% } %>
                 
-                <form action="register" method="post" onsubmit="return validateForm()">
+                <form action="RegisterServlet" method="post" onsubmit="return validateForm()">
                     <div class="form-group">
                         <label for="voterId">Voter ID:</label>
-                        <input type="text" id="voterId" name="voterId" required>
+                        <input type="text" id="voterId" name="voter_id" required>
                         <small>Use your Voter ID</small>
                     </div>
                     
