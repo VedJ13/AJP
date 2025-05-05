@@ -12,6 +12,7 @@ import com.voting.util.DatabaseUtil;
 
 public class CandidateDAO {
     public List<Candidate> getCandidatesByElection(int electionId) throws SQLException {
+        System.out.println("CandidateDAO: Getting candidates for election " + electionId);
         List<Candidate> candidates = new ArrayList<>();
         String sql = "SELECT * FROM candidates WHERE election_id = ? ORDER BY votes DESC";
         
@@ -19,8 +20,10 @@ public class CandidateDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setInt(1, electionId);
+            System.out.println("CandidateDAO: Executing SQL: " + sql + " with electionId = " + electionId);
             
             try (ResultSet rs = pstmt.executeQuery()) {
+                System.out.println("CandidateDAO: Executed query, processing results");
                 while (rs.next()) {
                     Candidate candidate = new Candidate();
                     candidate.setCandidateId(rs.getInt("candidate_id"));
@@ -31,14 +34,21 @@ public class CandidateDAO {
                     candidate.setManifesto(rs.getString("manifesto"));
                     candidate.setVotes(rs.getInt("votes"));
                     candidates.add(candidate);
+                    System.out.println("CandidateDAO: Added candidate: " + candidate.getName() + " (ID: " + candidate.getCandidateId() + ")");
                 }
+                System.out.println("CandidateDAO: Total candidates found: " + candidates.size());
             }
         }
         return candidates;
     }
 
     public boolean addCandidate(Candidate candidate) throws SQLException {
-        String sql = "INSERT INTO candidates (election_id, name, party, symbol, manifesto) VALUES (?, ?, ?, ?, ?)";
+        // First check if the election exists
+        if (!isElectionExists(candidate.getElectionId())) {
+            throw new SQLException("Election with ID " + candidate.getElectionId() + " does not exist");
+        }
+
+        String sql = "INSERT INTO candidates (election_id, name, party, symbol, manifesto, votes) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -48,9 +58,35 @@ public class CandidateDAO {
             pstmt.setString(3, candidate.getParty());
             pstmt.setString(4, candidate.getSymbol());
             pstmt.setString(5, candidate.getManifesto());
+            pstmt.setInt(6, candidate.getVotes());
             
-            return pstmt.executeUpdate() > 0;
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("Parameters: " + candidate.getElectionId() + ", " + candidate.getName() + ", " + 
+                             candidate.getParty() + ", " + candidate.getSymbol() + ", " + candidate.getManifesto() + 
+                             ", " + candidate.getVotes());
+            
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+            
+            return rowsAffected > 0;
         }
+    }
+
+    private boolean isElectionExists(int electionId) throws SQLException {
+        String sql = "SELECT COUNT(*) as count FROM elections WHERE election_id = ?";
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, electionId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("count") > 0;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean updateCandidateVotes(int candidateId) throws SQLException {

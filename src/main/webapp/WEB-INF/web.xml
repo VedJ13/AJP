@@ -35,4 +35,25 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+<!-- 
+    <servlet>
+        <servlet-name>CastVoteServlet</servlet-name>
+        <servlet-class>com.voting.servlets.CastVoteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CastVoteServlet</servlet-name>
+        <url-pattern>/CastVoteServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddCandidateServlet</servlet-name>
+        <servlet-class>com.voting.servlets.AddCandidateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCandidateServlet</servlet-name>
+        <url-pattern>/AddCandidateServlet</url-pattern>
+    </servlet-mapping>
+    -->
 </web-app>

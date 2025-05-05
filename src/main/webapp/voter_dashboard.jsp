@@ -274,7 +274,7 @@
         
         <div class="election-status">
             <h2>Current Election Status</h2>
-            <p>Student Council Elections 2023-2024</p>
+            
             
             <div class="status-details">
                 <div class="status-item">
@@ -296,6 +296,7 @@
             </div>
         </div>
         
+        <%--
         <div class="two-col-layout">
             <div class="left-column">
                 <div class="candidate-preview">
@@ -330,16 +331,17 @@
                     <h2>Your Voter Information</h2>
                     <div class="info-group">
                         <div class="info-label">Full Name:</div>
-                        <div class="info-value">John Robert Doe</div>
+                        <div class="info-value"><%= username %></div>
                     </div>
                     <div class="info-group">
                         <div class="info-label">Student ID:</div>
                         <div class="info-value">ST1234567</div>
                     </div>
-                    <div class="info-group">
+                 div class="info-group">
                         <div class="info-label">Department:</div>
                         <div class="info-value">Computer Science</div>
                     </div>
+                 
                     <div class="info-group">
                         <div class="info-label">Year:</div>
                         <div class="info-value">3rd Year</div>
@@ -403,7 +405,7 @@
             </div>
         </div>
     </div>
-    
+ 
     <footer class="site-footer">
         <div class="footer-content container">
             <p>&copy; <%= new java.util.Date().getYear() + 1900 %> Online Voting System. All rights reserved.</p>
@@ -415,7 +417,7 @@
             </div>
         </div>
     </footer>
-    
+    --%> 
     <script>
       <%-- // Script to update remaining time dynamically --%>
         function updateRemainingTime() {

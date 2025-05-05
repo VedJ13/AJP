@@ -28,13 +28,12 @@ CREATE TABLE IF NOT EXISTS elections (
 -- Create candidates table
 CREATE TABLE IF NOT EXISTS candidates (
     candidate_id INT AUTO_INCREMENT PRIMARY KEY,
-    election_id INT NOT NULL,
+    election_id INT NOT NULL DEFAULT 1,
     name VARCHAR(100) NOT NULL,
     party VARCHAR(100),
-    symbol VARCHAR(100),
+    symbol VARCHAR(255),
     manifesto TEXT,
-    votes INT DEFAULT 0,
-    FOREIGN KEY (election_id) REFERENCES elections(election_id)
+    votes INT DEFAULT 0
 );
 
 -- Create votes table
@@ -57,4 +56,11 @@ CREATE TABLE IF NOT EXISTS admins (
     password VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-); 
+);
+
+-- Insert default admin
+INSERT INTO admins (username, password, email) VALUES ('admin', 'admin123', 'admin@example.com');
+
+-- Insert default election
+INSERT INTO elections (title, description, start_date, end_date, status) 
+VALUES ('General Election 2024', 'National General Election', NOW(), DATE_ADD(NOW(), INTERVAL 30 DAY), 'ACTIVE'); 
